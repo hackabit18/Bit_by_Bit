@@ -1,0 +1,27 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 130px;
+  background-color: #343a40;
+}
+
+body{
+	padding-top: 65px;
+}
+
+@media (max-width: 450px) {
+  .btn {
+  	font-size: 4vw;
+  }
+  .footer {
+  	height: 140px;
+  }
+}
+
+@media (min-width: 450px) {
+  .btn {
+  	font-size: 1vw;
+  }
+}
