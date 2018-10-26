@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 4 ka code-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <!--Personal CSS file-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+	<title>Clip Sync</title>
+</head>
+<body onload="loadPosts()">
+
+<!--This section is for navbar-->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  		<div class="navbar-header text-center" style="text-align:center;width: 100%;">
+        <a class="navbar-brand" style="color: white; ">Clip Sync</a>
+    </div>
+	</div>
+</nav>
+
+<!--This section is for all the pasted content-->
+<div class="container posts-container">
+</div>
+
+<!--This section is for the sticky action bar-->
+<footer class="footer">
+	<div class="container">
+		<div class="row" style="padding-top: 10px; padding-bottom: 0px;">
+			<div class="col-md-10 col-8">
+				<div class="input-group mb-3">
+  					<input type="text" class="form-control" id="postContainer" placeholder="Enter the text to be pasted" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+			</div>
+			<div class="col-md-2 col-4">
+				<button type="button" class="btn btn-success" onclick="paste()">Paste</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-6">
+				<button type="button" class="btn btn-outline-light" onclick="clearAll()">Clear All</button>
+			</div>
+			<div class="col-md-4 col-6">
+				<button type="button" class="btn btn-outline-light" onclick="detectDevice()">Share QR code</button>
+			</div>
+			<div class="col-md-4 col-6">
+				<button type="button" class="btn btn-outline-light">Log Out</button>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<!-- This contains the section for Firebase setup-->
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-database.js"></script>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC_SlvWXrvhJVb8rTdU6WOWKJwhGrlH4Rs",
+    authDomain: "clipsync-ed979.firebaseapp.com",
+    databaseURL: "https://clipsync-ed979.firebaseio.com",
+    projectId: "clipsync-ed979",
+    storageBucket: "clipsync-ed979.appspot.com",
+    messagingSenderId: "1459947184"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script type="text/javascript" language="javascript" src="script.js"></script>
+</body>
+</html>
