@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-signin-client_id" content="749113595662-95968ckdj5lsipn3ui5gjhvfhfrm4gre.apps.googleusercontent.com">
+
+    <!-- Bootstrap 4 ka code-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <!--Personal CSS file-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+	<title>Clip Sync</title>
+</head>
+<body>
+
+<!--This section is for navbar-->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  		<div class="navbar-header text-center" style="text-align:center;width: 100%;">
+        <a class="navbar-brand" style="color: white; ">Clip Sync</a>
+    </div>
+	</div>
+</nav>
+
+<!--This section is for all the pasted content-->
+<div class="container">
+  <div class="row" style="padding: 200px;">
+    <div class="col-4 col-md-4"></div>
+    <div class="col-4 col-md-4 text-center" >
+      <span class="btn btn-primary" id="my-signin2" onclick="signin()">Login</span>
+    </div>
+    <div class="col-4 col-md-4"></div>
+  </div>
+</div>
+<!-- This contains the section for Firebase setup-->
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-auth.js"></script>
+
+<!--<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>-->
+<script>
+  // Initialize Firebase
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCi_rU_cWd-U2Qx9YvswFpygS_mXxh7Xo8",
+    authDomain: "clipsync-77d18.firebaseapp.com",
+    databaseURL: "https://clipsync-77d18.firebaseio.com",
+    projectId: "clipsync-77d18",
+    storageBucket: "clipsync-77d18.appspot.com",
+    messagingSenderId: "749113595662",
+    clientId: "749113595662-95968ckdj5lsipn3ui5gjhvfhfrm4gre.apps.googleusercontent.com",
+    scopes: [
+             "email",
+             "profile"
+    ]
+
+  };
+  firebase.initializeApp(config);
+</script>
+ <script>
+var provider = new firebase.auth.GoogleAuthProvider();
+//provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+    function signin(){
+firebase.auth().signInWithPopup(provider).then(function(result) {
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+  var user = result.user;
+
+  // ...
+}).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+});
+    }
+
+      function logOut(){
+        firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+        }).catch(function(error) {
+        // An error happened.
+        });
+      }
+      
+      firebase.auth().onAuthStateChanged(function(user) {
+        //console.log(user.uid);
+      if (user) {
+        //console.log(user);
+          // User is signed in.
+          //window.alert("User Logged In...");
+          //window.alert(user.uid);
+          localStorage.setItem("token", user.uid);
+          window.open("index.html", "_self");
+
+       } else {
+          // No user is signed in.
+          window.alert("User Not Logged In...");
+
+     }
+});
+
+  </script>
+
+</html>

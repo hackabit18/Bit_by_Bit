@@ -1,0 +1,364 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Clip Sync</title>
+    <script src="copyonclick.js"></script>
+
+<!-- W3.css class-->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<!-- Material Design Lite -->
+
+   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+   <!-- Material Design icon font -->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+ <!-- <script>
+   chrome.extension.onRequest.addListener(
+     function(request, sender, sendResponse) {
+      if (request.event == "copy") {
+         alert("copy detected");
+      }
+      sendResponse({});
+      });
+
+ </script> -->
+
+
+
+<style>
+
+
+
+.navbar-fixed-left {
+width: 16em;
+position: fixed;
+border-radius: 0;
+height: 100%;
+}
+
+.navbar-fixed-left .navbar-nav > li {
+float: none;  /* Cancel default li float: left */
+width: 16em;
+}
+
+.navbar-fixed-left{
+padding-left: -5em;
+}
+
+
+
+
+
+    /* Chat containers */
+.container1 {
+    border: 2px solid #dedede;
+    background-color: #808080;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 300px;
+
+}
+
+/* Darker chat container */
+.darker {
+    border-color: #ccc;
+    background-color: #808080;
+}
+
+.talk-bubble{
+  background-color: white;
+}
+
+/* Clear floats */
+.talk-bubble::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+/* Style time text */
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+    float: left;
+    color: #999;
+}
+
+
+
+#ip2 {
+    border-radius: 25px;
+    border: 2px solid green;
+    padding: 20px;
+    width: 370px;
+    height: 15px;
+
+
+    bottom: 0em;
+}
+
+
+
+
+.demo-list-two {
+  width: 300px;
+}
+
+.chatbox{
+
+overflow: scroll;
+}
+
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+.button {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 100px;
+}
+.button5 {font-size: 24px;}
+
+.button:hover {
+    background-color: grey;
+}
+
+.message {
+  border-radius: 500px;
+}
+
+
+/*Talk Bubble CSS  */
+
+/* CSS talk bubble */
+.talk-bubble {
+  margin: 40px;
+  display: inline-block;
+  position: relative;
+  width: 250px;
+  height: auto;
+  background-color: lightyellow;
+}
+.border {
+  border: 8px solid #666;
+}
+.round {
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+}
+
+
+.tri-right.border.btm-right:before {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: auto;
+  right: -8px;
+  bottom: -40px;
+  border: 20px solid;
+  border-color: #666 #666 transparent transparent;
+  align:right;
+}
+ .tri-right.btm-right:after {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: auto;
+  right: 0px;
+  bottom: -20px;
+  border: 12px solid;
+  border-color: lightyellow lightyellow transparent transparent;
+}
+
+
+/* talk bubble contents */
+.talktext {
+  padding: 1em;
+  text-align: left;
+  line-height: 1.5em;
+}
+.talktext p {
+  /* remove webkit p margins */
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
+
+
+
+
+
+</style>
+
+
+
+
+
+
+
+  </head>
+  <body style="background-color: grey;">
+
+
+
+<div class="container" style="height:37em; width:50em; background-color:grey;    overflow: auto; ">
+  <div class="row">
+    <div class="col-md-4 col-4">
+
+      <div class="navbar navbar-inverse navbar-fixed-left">
+    <h2 align="center" style="color: white">ClipSync</h2>
+    <br>
+    <ul class="nav navbar-nav" align="center">
+
+
+     <li><button class="button button5" link="" style="font-size:2vw;">Clear All</button></li>
+     <li><button class="button button5" link="" style="font-size:2vw;">Share QR Code</button></li>
+     <li><button class="button button5" link="" style="font-size:2vw;">Synced Devices</button></li>
+     <li><button class="button button5" link="" style="font-size:2vw;">Log Out</button></li>
+    </ul>
+  </div>
+
+    </div>
+    <div class="col-md-8 col-8">
+      <!--Chat Box-->
+
+<div align="right">
+
+        <div class="chatbox">
+
+           <!-- <button  onClick="copyToClipboard('#p1')"><img src="img/copy.png" /></button> -->
+        <div class="talk-bubble tri-right btm-right">
+        <div class="talktext">
+      <!--  <img src="/w3images/bandmember.jpg" alt="Avatar">  -->
+        <p id="p1" class="message">Message1</p>
+        <span class="time-right">Me</span>
+      </div>
+    </div>
+
+        <br>
+
+        <div class="talk-bubble tri-right btm-right">
+        <div class="talktext">
+      <!--  <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right">  -->
+      <p id="p2" class="message">Message2</p>
+      <span class="time-right">Device</span>
+    </div>
+  </div>
+      <!-- <button  onClick="copyToClipboard('#p2')"><img src="img/copy.png" /></button> -->
+      <br>
+
+      <div class="talk-bubble tri-right btm-right">
+      <div class="talktext">
+    <!--  <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right">  -->
+    <p id="p3" class="message">Message3</p>
+    <span class="time-right">Device</span>
+  </div>
+</div>
+  <!-- <button  onClick="copyToClipboard('#p3')"><img src="img/copy.png" /></button> -->
+    <br>
+
+  <div class="talk-bubble tri-right btm-right">
+  <div class="talktext">
+      <!--  <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right">  -->
+      <p id="p4" class="message">Message4</p>
+      <span class="time-right">Me</span>
+    </div>
+  </div>
+    <!-- <button  onClick="copyToClipboard('#p4')"><img src="img/copy.png" /></button> -->
+    <br>
+
+
+    <div class="talk-bubble tri-right btm-right">
+    <div class="talktext">
+    <!--  <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right">  -->
+    <p id="p4" class="message">Message4</p>
+    <span class="time-right">11:00</span>
+  </div>
+</div>
+  <!-- <button  onClick="copyToClipboard('#p4')"><img src="img/copy.png" /></button> -->
+  <br>
+
+
+
+</div>
+
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+</div>
+<!--  <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+    <button class="w3-bar-item w3-button w3-large"
+    onclick="w3_close()">Close &times;</button>
+    <a href="#" class="w3-bar-item w3-button">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button">Link 3</a>
+  </div>
+
+  <div id="main">
+
+  <div class="w3-teal">
+    <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+    <div class="w3-container">
+
+    </div>
+  </div>
+-->
+
+
+  <!--  <button id="checkPage">Send</button> -->
+
+
+
+<!--Chat Box Ends-->
+
+
+</div>
+
+<div align="right" style=" bottom: 10px; padding: 10px 25px 10px 0px; background-color: grey;" >
+<input type="text" id="ip2"/>
+<!-- Colored FAB button with ripple -->
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+      <i class="material-icons">add</i>
+    </button>
+</div>
+
+
+<!-- This contains the section for Firebase setup-->
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-database.js"></script>
+
+  </body>
+</html>

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="google-signin-client_id" content="749113595662-95968ckdj5lsipn3ui5gjhvfhfrm4gre.apps.googleusercontent.com">
     <!-- Bootstrap 4 ka code-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
@@ -16,30 +16,59 @@
 
 	<title>Clip Sync</title>
 </head>
-<body>
+<body onload="loadPosts()">
 
 <!--This section is for navbar-->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-	<div class="text-centre">
-  		<a class="navbar-brand" href="#">Clip Sync</a>
+  		<div class="navbar-header text-center" style="text-align:center;width: 100%;">
+        <a class="navbar-brand" style="color: white; ">Clip Sync</a>
+    </div>
 	</div>
 </nav>
 
 <!--This section is for all the pasted content-->
-<div class="container">
-	<h1>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-Why do we use it?
+<div class="container posts-container">
 
-It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
 
-Where does it come from?
+<!-- Modal for Synced Devices-->
+<div class="modal fade" id="syncedDevicesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Synced Devices</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body modal-body-synced-devices">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
-Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-Where can I get some?
-
-There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which loo</h1>
+<!-- Modal for QR Code-->
+<div class="modal fade" id="QRCodeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">QR Code</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body modal-body-QRCode text-center">
+        <p>Please ask your friend to scan this QR Code to join your ClipSync</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 
 <!--This section is for the sticky action bar-->
@@ -48,25 +77,37 @@ There are many variations of passages of Lorem Ipsum available, but the majority
 		<div class="row" style="padding-top: 10px; padding-bottom: 0px;">
 			<div class="col-md-10 col-8">
 				<div class="input-group mb-3">
-  					<input type="text" class="form-control" placeholder="Enter the text to be pasted" aria-label="Username" aria-describedby="basic-addon1">
+  					<input type="text" class="form-control" id="postContainer" placeholder="Enter the text to be pasted" aria-label="Username" aria-describedby="basic-addon1">
 				</div>
 			</div>
 			<div class="col-md-2 col-4">
-				<button type="button" class="btn btn-success">Post</button>
+				<button type="button" class="btn btn-success" onclick="paste()">Paste</button>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4 col-6">
-				<button type="button" class="btn btn-outline-light">Clear All</button>
+			<div class="col-md-3 col-6">
+				<button type="button" class="btn btn-outline-light" onclick="clearAll()">Clear All</button>
 			</div>
-			<div class="col-md-4 col-6">
-				<button type="button" class="btn btn-outline-light">Share QR code</button>
+			<div class="col-md-3 col-6">
+				<button type="button" class="btn btn-outline-light" onclick="detectDevice()">Share QR code</button>
 			</div>
-			<div class="col-md-4 col-6">
+			<div class="col-md-3 col-6">
+				<button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#syncedDevicesModal" onclick="displaySyncedDevices()">Synced Devices</button>
+			</div>
+			<div class="col-md-3 col-6">
 				<button type="button" class="btn btn-outline-light">Log Out</button>
 			</div>
 		</div>
 	</div>
 </footer>
+
+<!-- This contains the section for Firebase setup-->
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-auth.js"></script>
+
+
+<script type="text/javascript" language="javascript" src="script.js"></script>
+
 </body>
 </html>
