@@ -1,4 +1,8 @@
+var firstTime=true;
+
+
 function loadPosts(){
+  checkIfDeviceRegistered();
 	var refString="post";
 	var query1 = firebase.database().ref(refString);
 
@@ -146,4 +150,87 @@ if (navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
 if (navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";
 
 var deviceName=browserName+'-V'+majorVersion+'-'+OSName;
+return deviceName;
+}
+
+function checkIfDeviceRegistered(){
+  var deviceName=detectDevice();
+
+  var ref = firebase.database().ref("devices");
+  ref.once("value")
+  .then(function(snapshot) {
+    var deviceIsRegistered = snapshot.hasChild(deviceName);
+
+    if(!deviceIsRegistered)
+    {
+      ref.once("value")
+      .then(function(snapshot) {
+
+        return firebase.database().ref('devices').child(deviceName).set('online')
+.then(()=>{
+            alert("New Device Registered");
+          })
+        .catch(function(error) {
+            alert("Unfortunately there was an error, please try again");
+          });
+      });
+    } 
+  });
+
+}
+
+function displaySyncedDevices(){
+  var refString="devices";
+
+  var query1 = firebase.database().ref(refString);
+
+    var firstPromise=new Promise((resolve,reject)=>{
+
+      query1.once("value",function(snapshot) {
+
+      numberOfChildren = snapshot.numChildren(); 
+
+      if(numberOfChildren!=null)
+        resolve();
+
+
+    }).then(()=>{
+
+    var numberOfPostsLoaded=0;
+
+    var secondPromise=new Promise((resolve,reject)=>{
+    query1.on('child_added', function(childSnapshot, prevChildKey) {
+
+    currentPostKey=childSnapshot.key;
+    currentPost=childSnapshot.val();
+    
+
+    if(firstTime)
+    {
+      if(!firstTime)
+      {
+        $( ".modal-body" ).html('<h5></h5>');
+        firstTime=true;
+      }
+       $( ".modal-body" ).append('<h5>'+currentPostKey+' : '+currentPost+'</h5>');
+       numberOfPostsLoaded++;
+       if(numberOfChildren==numberOfPostsLoaded)
+       {
+          firstTime=false;
+          resolve();
+       }
+    }
+
+      if(numberOfPostsLoaded==numberOfChildren) 
+        {
+          resolve();
+        }
+    });
+  }).then(()=>{
+
+    console.log("Successfully Completed");
+  });
+
+  });
+  });
 }
