@@ -30,6 +30,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 
 var firstTime=true;
+var firstTime2 = true;
 var deviceName;
 detectDevice();
 
@@ -253,7 +254,7 @@ function checkIfDeviceRegistered(){
 function displaySyncedDevices(){
   var refString="devices";
 
-  var query1 = firebase.database().ref(refString);
+  var query1 = firebase.database().ref(localStorage.getItem("token")).child(refString);
 
     var firstPromise=new Promise((resolve,reject)=>{
 
@@ -274,6 +275,12 @@ function displaySyncedDevices(){
 
     currentPostKey=childSnapshot.key;
     currentPost=childSnapshot.val();
+    //console.log(currentPost.status);
+    if(currentPost.status == 'true'){
+        currentPost = 'online';
+    }else{
+        currentPost = 'offline';
+    }
     
 
     if(firstTime)
@@ -306,11 +313,20 @@ function displaySyncedDevices(){
 }
 
 function generateQRCode(){
-  var uID=123456789;
+  var uID=localStorage.getItem("token");
 
   if(firstTime2)
   {
     $( ".modal-body-QRCode" ).append('<img src="https://api.qrserver.com/v1/create-qr-code/?data='+uID+'&amp;size=100x100" alt="Loading QR Code" title="" />');
     firstTime2=false;
+    //alert('fdvnifv');
   }
 }
+
+document.getElementById("postContainer").addEventListener("keydown", function (e) {
+    if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+        paste();
+    }
+});
+
+
